@@ -168,15 +168,15 @@ OLD_FASHIONED_API_RESP = {
     'dateModified': '2016-11-04 09:46:42'}
 
 # EXPECTED_OUTPUTS
-MOJITO_EXPECTED_STR = 'Name: Mojito\nIngredients:\n- Light rum : 2-3 oz \n- Lime : Juice of 1 \n- Sugar : 2 tsp \n- ' \
-                      'Mint : 2-4 \n- Soda water : To Taste\nInstructions:\n' \
+MOJITO_EXPECTED_STR = 'Name: Mojito\nIngredients:\n- Light rum : 2-3 oz\n- Lime : Juice of 1\n- Sugar : 2 tsp\n- ' \
+                      'Mint : 2-4\n- Soda water : To Taste\nInstructions:\n' \
                       '1) Muddle mint leaves with sugar and lime juice\n' \
                       '2) Add a splash of soda water and fill the glass with cracked ice\n' \
                       '3) Pour the rum and top with soda water\n4) Garnish and serve with straw.\n'
 TOM_COLLINS_EXPECTED_STR = 'Name: Tom Collins\n' \
                            'Ingredients:' \
-                           '\n- Gin : 2 oz \n- Lemon juice : 1 oz \n- Sugar : 1 tsp superfine \n- ' \
-                           'Club soda : 3 oz \n- Maraschino cherry : 1 \n- Orange : 1 \n' \
+                           '\n- Gin : 2 oz\n- Lemon juice : 1 oz\n- Sugar : 1 tsp superfine\n- ' \
+                           'Club soda : 3 oz\n- Maraschino cherry : 1\n- Orange : 1\n' \
                            'Instructions:\n' \
                            '1) In a shaker half-filled with ice cubes, combine the gin, lemon juice, and sugar\n' \
                            '2) Shake well\n' \
