@@ -1,0 +1,193 @@
+"""
+Test data for the CocktailRecipeTest. It represents the output of the
+CocktailDB API for various cocktails.
+"""
+
+# INPUTS
+MOJITO_API_RESP = {
+    'idDrink': '11000',
+    'strDrink': 'Mojito',
+    'strDrinkAlternate': None,
+    'strDrinkES': None,
+    'strDrinkDE': None,
+    'strDrinkFR': None,
+    'strDrinkZH-HANS': None,
+    'strDrinkZH-HANT': None,
+    'strTags': 'IBA,ContemporaryClassic,Alcoholic,USA,Christmas',
+    'strVideo': None,
+    'strCategory': 'Cocktail',
+    'strIBA': 'Contemporary Classics',
+    'strAlcoholic': 'Alcoholic',
+    'strGlass': 'Highball glass',
+    'strInstructions': 'Muddle mint leaves with sugar and lime juice. Add a splash of soda water and fill the glass with cracked ice. Pour the rum and top with soda water. Garnish and serve with straw.',
+    'strInstructionsES': None,
+    'strInstructionsDE': 'Minzblätter mit Zucker und Limettensaft verrühren. Füge einen Spritzer Sodawasser hinzu und fülle das Glas mit gebrochenem Eis. Den Rum eingießen und mit Sodawasser übergießen. Garnieren und mit einem Strohhalm servieren.',
+    'strInstructionsFR': None,
+    'strInstructionsZH-HANS': None,
+    'strInstructionsZH-HANT': None,
+    'strDrinkThumb': 'https://www.thecocktaildb.com/images/media/drink/rxtqps1478251029.jpg',
+    'strIngredient1': 'Light rum',
+    'strIngredient2': 'Lime',
+    'strIngredient3': 'Sugar',
+    'strIngredient4': 'Mint',
+    'strIngredient5': 'Soda water',
+    'strIngredient6': None,
+    'strIngredient7': None,
+    'strIngredient8': None,
+    'strIngredient9': None,
+    'strIngredient10': None,
+    'strIngredient11': None,
+    'strIngredient12': None,
+    'strIngredient13': None,
+    'strIngredient14': None,
+    'strIngredient15': None,
+    'strMeasure1': '2-3 oz ',
+    'strMeasure2': 'Juice of 1 ',
+    'strMeasure3': '2 tsp ',
+    'strMeasure4': '2-4 ',
+    'strMeasure5': None,
+    'strMeasure6': None,
+    'strMeasure7': None,
+    'strMeasure8': None,
+    'strMeasure9': None,
+    'strMeasure10': None,
+    'strMeasure11': None,
+    'strMeasure12': None,
+    'strMeasure13': None,
+    'strMeasure14': None,
+    'strMeasure15': None,
+    'strCreativeCommonsConfirmed': 'No',
+    'dateModified': '2016-11-04 09:17:09'}
+TOM_COLLINS_API_RESP = {
+    'idDrink': '12402',
+    'strDrink': 'Tom Collins',
+    'strDrinkAlternate': None,
+    'strDrinkES': None,
+    'strDrinkDE': None,
+    'strDrinkFR': None,
+    'strDrinkZH-HANS': None,
+    'strDrinkZH-HANT': None,
+    'strTags': None,
+    'strVideo': None,
+    'strCategory': 'Ordinary Drink',
+    'strIBA': None,
+    'strAlcoholic': 'Alcoholic',
+    'strGlass': 'Collins glass',
+    'strInstructions': 'In a shaker half-filled with ice cubes, combine the gin, lemon juice, and sugar. Shake well. Strain into a collins glass almost filled with ice cubes. Add the club soda. Stir and garnish with the cherry and the orange slice.',
+    'strInstructionsES': None,
+    'strInstructionsDE': 'In einem Shaker, der halb mit Eiswürfeln gefüllt ist, Gin, Zitronensaft und Zucker mischen. Gut schütteln. In ein Collins-Glas abseihen, das mit Eiswürfeln gefüllt ist. Füge das Club-Soda hinzu. Umrühren und mit der Kirsche und der Orangenscheibe garnieren.',
+    'strInstructionsFR': None,
+    'strInstructionsZH-HANS': None,
+    'strInstructionsZH-HANT': None,
+    'strDrinkThumb': 'https://www.thecocktaildb.com/images/media/drink/qystvv1439907682.jpg',
+    'strIngredient1': 'Gin',
+    'strIngredient2': 'Lemon juice',
+    'strIngredient3': 'Sugar',
+    'strIngredient4': 'Club soda',
+    'strIngredient5': 'Maraschino cherry',
+    'strIngredient6': 'Orange',
+    'strIngredient7': None,
+    'strIngredient8': None,
+    'strIngredient9': None,
+    'strIngredient10': None,
+    'strIngredient11': None,
+    'strIngredient12': None,
+    'strIngredient13': None,
+    'strIngredient14': None,
+    'strIngredient15': None,
+    'strMeasure1': '2 oz ',
+    'strMeasure2': '1 oz ',
+    'strMeasure3': '1 tsp superfine ',
+    'strMeasure4': '3 oz ',
+    'strMeasure5': '1 ',
+    'strMeasure6': '1 ',
+    'strMeasure7': None,
+    'strMeasure8': None,
+    'strMeasure9': None,
+    'strMeasure10': None,
+    'strMeasure11': None,
+    'strMeasure12': None,
+    'strMeasure13': None,
+    'strMeasure14': None,
+    'strMeasure15': None,
+    'strCreativeCommonsConfirmed': 'No',
+    'dateModified': '2015-08-18 15:21:22'}
+OLD_FASHIONED_API_RESP = {
+    'idDrink': '11001',
+    'strDrink': 'Old Fashioned',
+    'strDrinkAlternate': None,
+    'strDrinkES': None,
+    'strDrinkDE': None,
+    'strDrinkFR': None,
+    'strDrinkZH-HANS': None,
+    'strDrinkZH-HANT': None,
+    'strTags': 'IBA,Classic,Alcoholic',
+    'strVideo': None,
+    'strCategory': 'Cocktail',
+    'strIBA': 'Unforgettables',
+    'strAlcoholic': 'Alcoholic',
+    'strGlass': 'Old-fashioned glass',
+    'strInstructions': 'Place sugar cube in old fashioned glass and saturate with bitters, add a dash of plain water. Muddle until dissolved.\r\nFill the glass with ice cubes and add whiskey.\r\n\r\nGarnish with orange twist, and a cocktail cherry.',
+    'strInstructionsES': None,
+    'strInstructionsDE': 'Zuckerwürfel in ein old fashioned Glas geben und mit Bitterstoff sättigen, einen Schuss Wasser hinzufügen. Vermischen, bis sie sich auflösen.',
+    'strInstructionsFR': None,
+    'strInstructionsZH-HANS': None,
+    'strInstructionsZH-HANT': None,
+    'strDrinkThumb': 'https://www.thecocktaildb.com/images/media/drink/vrwquq1478252802.jpg',
+    'strIngredient1': 'Bourbon',
+    'strIngredient2': 'Angostura bitters',
+    'strIngredient3': 'Sugar',
+    'strIngredient4': 'Water',
+    'strIngredient5': None,
+    'strIngredient6': None,
+    'strIngredient7': None,
+    'strIngredient8': None,
+    'strIngredient9': None,
+    'strIngredient10': None,
+    'strIngredient11': None,
+    'strIngredient12': None,
+    'strIngredient13': None,
+    'strIngredient14': None,
+    'strIngredient15': None,
+    'strMeasure1': '4.5 cL',
+    'strMeasure2': '2 dashes',
+    'strMeasure3': '1 cube',
+    'strMeasure4': 'dash',
+    'strMeasure5': None,
+    'strMeasure6': None,
+    'strMeasure7': None,
+    'strMeasure8': None,
+    'strMeasure9': None,
+    'strMeasure10': None,
+    'strMeasure11': None,
+    'strMeasure12': None,
+    'strMeasure13': None,
+    'strMeasure14': None,
+    'strMeasure15': None,
+    'strCreativeCommonsConfirmed': 'Yes',
+    'dateModified': '2016-11-04 09:46:42'}
+
+# EXPECTED_OUTPUTS
+MOJITO_EXPECTED_STR = 'Name: Mojito\nIngredients:\n- Light rum : 2-3 oz \n- Lime : Juice of 1 \n- Sugar : 2 tsp \n- ' \
+                      'Mint : 2-4 \n- Soda water : To Taste\nInstructions:\n' \
+                      '1) Muddle mint leaves with sugar and lime juice\n' \
+                      '2) Add a splash of soda water and fill the glass with cracked ice\n' \
+                      '3) Pour the rum and top with soda water\n4) Garnish and serve with straw.\n'
+TOM_COLLINS_EXPECTED_STR = 'Name: Tom Collins\n' \
+                           'Ingredients:' \
+                           '\n- Gin : 2 oz \n- Lemon juice : 1 oz \n- Sugar : 1 tsp superfine \n- ' \
+                           'Club soda : 3 oz \n- Maraschino cherry : 1 \n- Orange : 1 \n' \
+                           'Instructions:\n' \
+                           '1) In a shaker half-filled with ice cubes, combine the gin, lemon juice, and sugar\n' \
+                           '2) Shake well\n' \
+                           '3) Strain into a collins glass almost filled with ice cubes\n' \
+                           '4) Add the club soda\n' \
+                           '5) Stir and garnish with the cherry and the orange slice.\n'
+OLD_FASHIONED_EXPECTED_STR = 'Name: Old Fashioned\n' \
+                             'Ingredients:\n- Bourbon : 4.5 cL\n- Angostura bitters : 2 dashes\n- ' \
+                             'Sugar : 1 cube\n- Water : dash\n' \
+                             'Instructions:\n' \
+                             '1) Place sugar cube in old fashioned glass and saturate with bitters, ' \
+                             'add a dash of plain water. Muddle until dissolved.\n' \
+                             '2) Fill the glass with ice cubes and add whiskey.\n' \
+                             '3) Garnish with orange twist, and a cocktail cherry.\n'
