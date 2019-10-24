@@ -1,8 +1,8 @@
 """
 Script utility which creates two sheets inside a google sheets file.
-One of the sheets contains cocktail instructions, while the other
+One of the sheets contains cocktail instructions, another
 contains the ingredients necessary for the the set of cocktails
-requested.
+requested, and another contains a mapping from an ingredient to drink name.
 Note:
     You need create a Google API project with Google Sheets integration,
     the service must credentials must be saved under a file called credentials.json
@@ -16,7 +16,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 from cocktail import CocktailRecipe
-from drink_lookup import get_drink_by_name
+from drink_lookup import get_drink_by_name, get_drinks_based_on_ingredient
 
 scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
@@ -25,7 +25,7 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name('credentials.json
 gc = gspread.authorize(credentials)
 
 
-def write_cocktail_instructions(
+def write_cocktail_instructions_return_next_row(
         cocktail_recipe: CocktailRecipe,
         ws: gspread.Worksheet = None,
         row: int = None) -> int:
@@ -51,6 +51,81 @@ def write_cocktail_instructions(
     return current_row
 
 
+def write_cocktail_header_return_next_row(cocktail_recipe: CocktailRecipe, ws: gspread.Worksheet, row: int = None):
+    """
+    Writes a separator line and drink name into the spreadsheet at the next available row
+    :param cocktail_recipe: Recipe to which to write the header for.
+    :param ws: Worksheet that should be written to.
+    :param row: Row which to write the header into.
+    :return: The rwo below the cocktail header
+    """
+    top_margin_row = 3
+    current_row = row
+    if row is None:
+        current_row = find_next_empty_row_index(ws)
+    if current_row >= top_margin_row:
+        write_separator_line(ws, current_row, width=3, separator="0")
+        current_row += 1
+    ws.update_cell(current_row, 1, cocktail_recipe.get_name())
+    current_row += 1
+    return current_row
+
+
+def write_ingredient_header_return_next_row(ingredient: str, ws: gspread.Worksheet, row: int = None):
+    """
+    Writes a separator line and ingredient name into the spreadsheet at the next available row.
+    If no row is given, it finds the next empty row in the worksheet.
+    :param ingredient: The ingredient of the drinks
+    :param ws: Worksheet that should be written to.
+    :param row: Row which to write the header to.
+    :return: The row below the ingredient header.
+    """
+    top_margin_row = 3
+    current_row = row
+    if current_row is None:
+        current_row = find_next_empty_row_index(ws)
+    if current_row >= top_margin_row:
+        write_separator_line(ws, current_row, width=2, separator="0")
+        current_row += 1
+    ws.update_cell(current_row, 1, ingredient)
+    current_row += 1
+    return current_row
+
+
+def write_cocktail_ingredients_into_spreadsheet_return_next_row(cocktail_recipe: CocktailRecipe, ws: gspread.Worksheet,
+                                                                next_empty_row=None) -> int:
+    """
+    Inserts the cocktail_recipe recipe into the bottom of the spreadsheet.
+    The first entry in the row is the
+    :param cocktail_recipe: The cocktail_recipe recipe to insert into the spreadsheet.
+    :param ws: The worksheet to insert the cocktail_recipe to
+    :param next_empty_row: If known, the next empty row where to write the ingredients to.
+    :return The next empty row below the current row.
+    """
+    current_row = write_cocktail_header_return_next_row(cocktail_recipe, ws, next_empty_row)
+    for ingredient, amount in cocktail_recipe.get_ingredients().items():
+        ws.update_cell(current_row, 2, ingredient)
+        ws.update_cell(current_row, 3, amount)
+        current_row += 1
+    return current_row
+
+
+def write_cocktail_names_based_on_ingredient_return_next_row(ingredient: str, ws: gspread.Worksheet,
+                                                             next_empty_row=None, limit: int = 1) -> int:
+    """
+    :param ingredient: The main ingredient of the drinks whose name to write.
+    :param ws: The worksheet to insert the drink name to
+    :param next_empty_row: If known, the next empty row where to write the drink names to.
+    :param limit: The maximum number of drink names to write for the given ingredient.
+    :return: The next empty row below where the drink names were written.
+    """
+    current_row = write_ingredient_header_return_next_row(ingredient, ws, next_empty_row)
+    for cocktail in get_drinks_based_on_ingredient(ingredient, limit):
+        ws.update_cell(current_row, 2, cocktail.get_name())
+        current_row += 1
+    return current_row
+
+
 def write_separator_line(ws: gspread.Worksheet, separator_row_index: int, width: int,
                          separator: Union[str, int]) -> None:
     """
@@ -63,43 +138,6 @@ def write_separator_line(ws: gspread.Worksheet, separator_row_index: int, width:
     """
     for col in range(1, width + 1):
         ws.update_cell(separator_row_index, col, separator)
-
-
-def write_cocktail_header_return_next_row(cocktail_recipe: CocktailRecipe, ws: gspread.Worksheet, row: int = None):
-    """
-    Writes a separator line and drink name into the spreadsheet at the next available
-    :param cocktail_recipe: Recipe to which to write the header for.
-    :param ws: Worksheet that should be written to.
-    :param row: Row which to write the header into.
-    :return: The rwo below the cocktail header
-    """
-    reserved_rows = {1, 2}
-    current_row = row
-    if row is None:
-        current_row = find_next_empty_row_index(ws)
-    if current_row not in reserved_rows:
-        write_separator_line(ws, current_row, width=3, separator="0")
-        current_row += 1
-    ws.update_cell(current_row, 1, cocktail_recipe.get_name())
-    current_row += 1
-    return current_row
-
-
-def write_cocktail_ingredients_into_spreadsheet_return_next_row(cocktail_recipe: CocktailRecipe, ws: gspread.Worksheet,
-                                                                next_empty_row=None) -> int:
-    """
-    Inserts the cocktail_recipe recipe into the bottom of the spreadsheet.
-    The first entry in the row is the
-    :param cocktail_recipe: The cocktail_recipe recipe to insert into the spreadsheet.
-    :param ws: The worksheet to insert the cocktail_recipe to
-    :return The next empty row below the current row.
-    """
-    current_row = write_cocktail_header_return_next_row(cocktail_recipe, ws, next_empty_row)
-    for ingredient, amount in cocktail_recipe.get_ingredients().items():
-        ws.update_cell(current_row, 2, ingredient)
-        ws.update_cell(current_row, 3, amount)
-        current_row += 1
-    return current_row
 
 
 def find_next_empty_row_index(
@@ -147,7 +185,7 @@ def is_row_empty(ws: gspread.Worksheet, row: int, min_horizontal_empty_cells: in
 
 
 if __name__ == '__main__':
-    sheet_name = "Sheet name which the project has authorization for."
+    sheet_name = "EID Data"  # Sheet name which the project has authorization for."
     sheet = gc.open(sheet_name)
     drinks_to_insert = {
         "Tom Collins",
@@ -162,23 +200,51 @@ if __name__ == '__main__':
         "Cuba Libre",
         "Long Island Iced Tea",
     }
+    ingredients_to_insert = {
+        "Gin",
+        "Vodka",
+        "Tequila",
+        "Whiskey",
+        "Rum",
+        "Light rum",
+        "Coffee liqueur",
+        "Lemonade",
+        "Scotch",
+        "Tea",
+        "Kahlua",
+        "Everclear",
+        "7-up"
+    }
     # Pre-processing
-    ingredients_sheet = sheet.add_worksheet("Ingredients")
+    ingredients_sheet = sheet.add_worksheet("Ingredients", 100, 100)
     ingredients_sheet.insert_row(["Drink Name", "Ingredient", "Amount"])
-    instructions_sheet = sheet.add_worksheet("Instructions")
+    instructions_sheet = sheet.add_worksheet("Instructions", 100, 100)
     instructions_sheet.insert_row(["Drink Name", "Instruction"])
-
+    drink_by_ingredient_sheet = sheet.add_worksheet("Ingredient to Drink", 100, 100)
+    drink_by_ingredient_sheet.insert_row(["Ingredient", "Drink Names"])
     next_empty_row_ingredient = 2  # starting row
     next_empty_row_instructions = 2
-    while drinks_to_insert:
+    next_empty_row_drink_by_ingredient = 2
+    while drinks_to_insert and False:
         name = drinks_to_insert.pop()
         cocktail = get_drink_by_name(name)
         try:
             next_empty_row_ingredient = write_cocktail_ingredients_into_spreadsheet_return_next_row(
-                cocktail, sheet.worksheet("Ingredients"), next_empty_row_ingredient)
-            next_empty_row_instructions = write_cocktail_instructions(
-                cocktail, sheet.worksheet("Instructions"), next_empty_row_instructions)
+                cocktail, ingredients_sheet, next_empty_row_ingredient)
+            next_empty_row_instructions = write_cocktail_instructions_return_next_row(
+                cocktail, instructions_sheet, next_empty_row_instructions)
+
         except gspread.exceptions.APIError:
             print("Reached rate limit. Waiting 30 seconds.")
             sleep(30)
             drinks_to_insert.add(name)
+    while ingredients_to_insert:
+        main_ingredient = ingredients_to_insert.pop()
+        try:
+            next_empty_row_drink_by_ingredient = write_cocktail_names_based_on_ingredient_return_next_row(
+                main_ingredient, drink_by_ingredient_sheet, next_empty_row_drink_by_ingredient, limit=5
+            )
+        except gspread.exceptions.APIError:
+            print("Reached rate limit. Waiting 30 seconds.")
+            sleep(30)
+            ingredients_to_insert.add(main_ingredient)

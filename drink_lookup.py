@@ -42,7 +42,6 @@ def get_drinks_based_on_ingredient(ingredient: str, limit: int = 1):
     data = json.loads(response.content)
     if data.get("drinks") is None:
         raise ValueError("Could not find a drink with the ingredient {}".format(ingredient))
-    print(data.get("drinks"))
     drink_names = list(data.get("drinks")[i]["strDrink"] for i in range(min(limit, len(data.get("drinks")))))
     return list(get_drink_by_name(drink_name) for drink_name in drink_names)
 
