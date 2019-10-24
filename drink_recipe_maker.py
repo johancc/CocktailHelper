@@ -36,7 +36,7 @@ def write_cocktail_instructions(
         Cocktail name,
         Instruction 1,
         ...,
-        Instruction n
+        Instruction limit
     The cocktail has a separator line after the previous entry in the
     worksheet, unless the worksheet is empty.
     :param ws: The worksheet where to write the cocktail_recipe to
