@@ -1,5 +1,5 @@
 """
-Finds the recipe for a particular cocktail and provides a simple class to
+Finds the recipe for a particular cocktail_recipe and provides a simple class to
 show instructions, ingredients, and materials needed. It is able to find a
 drink based on the name or the ingredients that you have. Uses the
 CocktailDB API as a backend.
@@ -14,11 +14,11 @@ class CocktailRecipe:
 
     def __init__(self, cocktail_db_api_response: dict):
         """
-        Represents the recipe for a cocktail, including instructions, ingredients,
+        Represents the recipe for a cocktail_recipe, including instructions, ingredients,
         materials needed, and portions.
         based on the api response of CocktailDB
         :param cocktail_db_api_response: Response from the CocktailDB API detailing
-        how to make a given cocktail.
+        how to make a given cocktail_recipe.
         :raises ValueError: Raised if the provided dictionary does not have the
         expected keys: strDrink, strGlass, strIngredient+{number}, strMeasure + {number}
         """
@@ -37,9 +37,9 @@ class CocktailRecipe:
     @staticmethod
     def check_requirements(cocktail_db_api_response: dict) -> bool:
         """
-        Checks that a given api response is a valid cocktail recipe.
+        Checks that a given api response is a valid cocktail_recipe recipe.
         :param cocktail_db_api_response: Response from the CocktailDB API detailing
-        how to make a given cocktail.
+        how to make a given cocktail_recipe.
         :return: True if the provided dictionary does has the  expected keys:
         strDrink, strGlass, strInstructions, strIngredient+{number}, strMeasure + {number}
         """

@@ -2,16 +2,16 @@ import json
 
 import requests
 
-from Cocktail import CocktailRecipe
+from cocktail import CocktailRecipe
 
 EMPTY_DRINK_REQUEST = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s="
 
 
 def get_drink_by_name(name: str) -> CocktailRecipe:
     """
-    Searches for a given cocktail in the CocktailDB API
+    Searches for a given cocktail_recipe in the CocktailDB API
     and returns the recipe for the closest match to the
-    desired cocktail.
+    desired cocktail_recipe.
     Note:
     Does not guarantee the drink desired will have the same name
     as the drink returned.

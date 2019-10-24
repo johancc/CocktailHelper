@@ -1,6 +1,6 @@
 import unittest
 
-from Cocktail import CocktailRecipe
+from cocktail import CocktailRecipe
 from tests.test_data import *
 
 VALID_RECIPES_TUPLES = [
@@ -60,6 +60,7 @@ class CocktailRecipeTest(unittest.TestCase):
         old_fashioned_recipe = CocktailRecipe(OLD_FASHIONED_API_RESP)
         expected_glass = "Old-fashioned glass"
         self.assertEqual(expected_glass, old_fashioned_recipe.get_glass())
+
 
 if __name__ == '__main__':
     unittest.main()
